@@ -46,8 +46,8 @@ jobs:
           python --version
           echo "After conda init"
           conda init
-          cd ersilia
-          python -m pip install -e 
+          cd ersilia-r
+          python -m pip install -e .
           
           
       # this should already run your command
