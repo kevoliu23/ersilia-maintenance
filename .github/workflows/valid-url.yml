@@ -1,0 +1,58 @@
+name: Check if Model Repo Exists in Github
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: '0 2 * * *'
+
+
+jobs:
+  publications-and-repositories:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      # where do I find this code?
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v3.5.3
+
+      - name: Add conda to system path
+        run: echo $CONDA/bin >> $GITHUB_PATH
+
+      - name: Source conda
+        run: source $CONDA/etc/profile.d/conda.sh
+        
+        #is this the correct version?
+      - name: Set Python to 3.12.2
+        run:
+         conda install -y python=3.12.2
+
+      - name: Install dependencies
+        run: |
+          source activate
+          conda init
+          conda install git-lfs -c conda-forge
+          git-lfs install
+          conda install gh -c conda-forge
+
+      - name: Install dependencies
+        run: |
+            source activate
+            git clone https://github.com/reneeperpignan/ersilia-r.git
+      
+      - name: Install ersilia
+        run: |
+          source activate
+          python --version
+          echo "After conda init"
+          conda init
+          cd ersilia
+          python -m pip install -e 
+          
+          
+      # this should already run your command
+      - name: Run checkRepoExists
+        run: |
+          # might need source activate
+          ersilia inspect eos3b5e
+          
