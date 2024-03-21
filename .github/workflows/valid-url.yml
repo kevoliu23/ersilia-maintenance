@@ -6,14 +6,11 @@ on:
   schedule:
     - cron: '0 2 * * *'
 
-
 jobs:
   publications-and-repositories:
     runs-on: ubuntu-latest
 
-
     steps:
-      # where do I find this code?
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v3.5.3
 
       - name: Add conda to system path
@@ -23,9 +20,9 @@ jobs:
         run: source $CONDA/etc/profile.d/conda.sh
         
         #is this the correct version?
-      - name: Set Python to 3.12.2
+      - name: Set Python to 3.10
         run:
-         conda install -y python=3.12.2
+         conda install -y python=3.10
 
       - name: Install dependencies
         run: |
@@ -49,8 +46,6 @@ jobs:
           cd ersilia-r
           python -m pip install -e .
           
-          
-      # this should already run your command
       - name: Run checkRepoExists
         run: |
           # might need source activate
