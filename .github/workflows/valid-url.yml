@@ -48,5 +48,12 @@ jobs:
       - name: Run checkRepoExists
         run: |
           # might need source activate
-          ersilia inspect eos3b5e
+          # ersilia inspect eos3b5e
+          echo "Sample model id selected: $MODEL_ID"
+          ersilia -v fetch $MODEL_ID
+          if ersilia inspect $MODEL_ID; then 
+            echo "Model Found"
+          else
+            echo"Model not found"
+          fi
           
